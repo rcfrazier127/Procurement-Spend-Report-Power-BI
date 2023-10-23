@@ -4,6 +4,8 @@
 
 <img width="872" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Analysis-Dashboard/assets/63532077/334b0bdb-a093-4beb-abec-6a20bc3a16cd">
 
-<img width="732" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Analysis-Dashboard/assets/63532077/3f57e869-34e8-4bbc-a148-f01f9f85ef66">
+<img width="699" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Analysis-Dashboard/assets/63532077/67dcc800-f38b-404a-b537-7d2c9710ba56">
 
-<img width="1575" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Analysis-Dashboard/assets/63532077/14dfa6b9-4a9d-470f-b85b-8f274bf7ac16">
+<img width="1550" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Analysis-Dashboard/assets/63532077/4ebbe055-a7f7-4e6a-9e77-c4dc5779a587">
+
+<img width="1550" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Analysis-Dashboard/assets/63532077/8fa8f396-5085-446f-9816-db58726ce92f">
