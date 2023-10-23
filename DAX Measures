@@ -1,0 +1,28 @@
+Relevant DAX Measures:
+------------------------------------------------------------------------------------------------------------------------
+Average PO Savings by Vendor = 
+AVERAGEX(
+    SUMMARIZE('Purchase Orders', 'Vendors'[Vendor Name], 'Purchase Orders'[PO Saving Amount]),
+    [PO Saving Amount]
+)
+
+------------------------------------------------------------------------------------------------------------------------
+Average PO Spend by Vendor = 
+AVERAGEX(
+    SUMMARIZE('Purchase Orders', 'Vendors'[Vendor Name], 'Purchase Orders'[PO Amount]),
+    [PO Amount]
+)
+
+------------------------------------------------------------------------------------------------------------------------
+Average Purchase Orders = 
+VAR VendorPurchaseOrders =
+    SUMMARIZE(
+        'Vendors',
+        'Vendors'[Vendor Name],
+        "Total Orders",
+        COUNTROWS('Purchase Orders')
+    )
+RETURN
+    AVERAGEX(VendorPurchaseOrders, [Total Orders])
+
+------------------------------------------------------------------------------------------------------------------------
