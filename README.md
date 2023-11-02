@@ -6,6 +6,6 @@
 
 <img width="699" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Analysis-Dashboard/assets/63532077/67dcc800-f38b-404a-b537-7d2c9710ba56">
 
-<img width="1550" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Analysis-Dashboard/assets/63532077/4ebbe055-a7f7-4e6a-9e77-c4dc5779a587">
+<img width="1575" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Dashboard-Power-BI/assets/63532077/e7927684-0f6d-43e7-a9ba-f657f82c1fd3">
 
 <img width="1550" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Analysis-Dashboard/assets/63532077/8fa8f396-5085-446f-9816-db58726ce92f">
