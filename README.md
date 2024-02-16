@@ -5,6 +5,7 @@
 
 ### Introduction
 
+The Procurement Spend Report is intended to provide a breakdown of an organization's spend, savings, and purchase orders, and the top drivers that influence those trends.
 
 ### Data Preparation
 
