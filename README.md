@@ -1,6 +1,8 @@
+# For the fully interactive Power BI report, please view my portfolio on https://www.novypro.com/project/procurement-spend-report-power-bi
+-------------------------------------------------------------------------------------------------------------------------------------------
+
 # Procurement-Spend-Report in Power BI
 
-(Under Construction)
 
 <img width="816" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Report-Power-BI/assets/63532077/06de6136-e825-4d9f-9a48-536f6a7de5cb">
 
