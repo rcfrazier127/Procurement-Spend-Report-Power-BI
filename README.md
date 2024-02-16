@@ -18,7 +18,7 @@
 
 ### Overview Page
 
-<img width="816" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Report-Power-BI/assets/63532077/06de6136-e825-4d9f-9a48-536f6a7de5cb">
+<img width="816" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Report-Power-BI/assets/63532077/a911ae92-9d99-4f36-8bd0-71a5fe02dba3">
 
 
 ### Details Page
