@@ -6,6 +6,11 @@
 ### Introduction
 
 
+### Data Preparation
+
+<img width="755" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Report-Power-BI/assets/63532077/98917195-77c0-4fb9-ac22-076a75903d70">
+
+
 ### Data Model
 
 <img width="1281" alt="image" src="https://github.com/rcfrazier127/Procurement-Spend-Report-Power-BI/assets/63532077/ea7e26a8-0997-4196-ae45-41c14e0d99be">
