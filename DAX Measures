@@ -1,28 +1,396 @@
-Relevant DAX Measures:
-------------------------------------------------------------------------------------------------------------------------
-Average PO Savings by Vendor = 
-AVERAGEX(
-    SUMMARIZE('Purchase Orders', 'Vendors'[Vendor Name], 'Purchase Orders'[PO Saving Amount]),
-    [PO Saving Amount]
-)
+This is a list of DAX measures used in the following tables:
+
+Cards/Arrows
+Measures Table
+Metric Selection
 
 ------------------------------------------------------------------------------------------------------------------------
-Average PO Spend by Vendor = 
-AVERAGEX(
-    SUMMARIZE('Purchase Orders', 'Vendors'[Vendor Name], 'Purchase Orders'[PO Amount]),
-    [PO Amount]
-)
+
+
+
+
+***Cards/Arrows***
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
-Average Purchase Orders = 
-VAR VendorPurchaseOrders =
-    SUMMARIZE(
-        'Vendors',
-        'Vendors'[Vendor Name],
-        "Total Orders",
-        COUNTROWS('Purchase Orders')
+Arrows For MoM Orders =
+ IF(
+    [MoM Orders % Difference]<0, UNICHAR(9660), 
+        IF([MoM Orders % Difference]>0, UNICHAR(9650)
+        )
     )
+------------------------------------------------------------------------------------------------------------------------
+Arrows For MoM Savings =
+IF(
+    [MoM Savings % Difference]<0, UNICHAR(9660),
+        IF([MoM Savings % Difference]>0, UNICHAR(9650)
+        )
+    )
+------------------------------------------------------------------------------------------------------------------------
+Arrows For MoM Spend =
+IF(
+    [MoM Spend % Difference]<0, UNICHAR(9660),
+        IF([MoM Spend % Difference]>0, UNICHAR(9650)
+        )
+    )
+------------------------------------------------------------------------------------------------------------------------
+Arrows For QoQ Orders = 
+IF(
+    [QoQ Orders % Difference]<0, UNICHAR(9660), 
+        IF([QoQ Orders % Difference]>0, UNICHAR(9650)
+        )
+    )
+------------------------------------------------------------------------------------------------------------------------
+Arrows For QoQ Savings = 
+IF(
+    [QoQ Savings % Difference]<0, UNICHAR(9660), 
+        IF([QoQ Savings % Difference]>0, UNICHAR(9650)
+        )
+    )
+------------------------------------------------------------------------------------------------------------------------
+Arrows For QoQ Spend = 
+IF(
+    [QoQ Spend % Difference]<0, UNICHAR(9660), 
+        IF([QoQ Spend % Difference]>0, UNICHAR(9650)
+        )
+    )
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+***Measures Table***
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+% of Orders = 
+DIVIDE(
+        CALCULATE(
+        DISTINCTCOUNT('Purchase Orders'[PO Number]),
+        ALL('Date')
+    ),
+    CALCULATE(
+        DISTINCTCOUNT('Purchase Orders'[PO Number]),
+        ALL('Purchase Orders')
+    )
+)
+------------------------------------------------------------------------------------------------------------------------
+% of Savings = 
+DIVIDE(
+        CALCULATE(
+        SUM('Purchase Orders'[PO Saving Amount]),
+        ALL('Date')
+    ),
+    CALCULATE(
+        SUM('Purchase Orders'[PO Saving Amount]),
+        ALL('Purchase Orders')
+    )
+)
+------------------------------------------------------------------------------------------------------------------------
+% of Spend = 
+DIVIDE(
+        CALCULATE(
+        SUM('Purchase Orders'[PO Amount]),
+        ALL('Date')
+    ),
+    CALCULATE(
+        SUM('Purchase Orders'[PO Amount]),
+        ALL('Purchase Orders')
+    )
+)
+------------------------------------------------------------------------------------------------------------------------
+Avg Purchase Orders = 
+AVERAGEX(
+    VALUES('Date'[Date]), 
+    [Purchase Orders]
+)
+------------------------------------------------------------------------------------------------------------------------
+Domestic Orders = 
+CALCULATE(
+        'Measures Table'[Purchase Orders],
+            'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ) -
+CALCULATE(
+        'Measures Table'[Purchase Orders],
+            'Purchase Details'[Location Type] = "International"
+)
+------------------------------------------------------------------------------------------------------------------------
+Domestic Orders % = 
+DIVIDE(
+    CALCULATE(
+        'Measures Table'[Purchase Orders],
+        'Purchase Details'[Location Type] = "Domestic"
+    ),
+    CALCULATE(
+        'Measures Table'[Purchase Orders],
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ),
+    0
+)
+------------------------------------------------------------------------------------------------------------------------
+Domestic Savings = 
+CALCULATE(
+        SUM('Purchase Orders'[PO Saving Amount]),
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ) -
+CALCULATE(
+    SUM('Purchase Orders'[PO Saving Amount]),
+        'Purchase Details'[Location Type] = "International"
+)
+------------------------------------------------------------------------------------------------------------------------
+Domestic Savings % = 
+DIVIDE(
+    CALCULATE(
+        SUM('Purchase Orders'[PO Saving Amount]),
+        'Purchase Details'[Location Type] = "Domestic"
+    ),
+    CALCULATE(
+        SUM('Purchase Orders'[PO Saving Amount]),
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ),
+    0
+)
+------------------------------------------------------------------------------------------------------------------------
+Domestic Spend = 
+CALCULATE(
+        SUM('Purchase Orders'[PO Amount]),
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ) -
+CALCULATE(
+    SUM('Purchase Orders'[PO Amount]),
+        'Purchase Details'[Location Type] = "International"
+)
+------------------------------------------------------------------------------------------------------------------------
+Domestic Spend % = 
+DIVIDE(
+    CALCULATE(
+        SUM('Purchase Orders'[PO Amount]),
+        'Purchase Details'[Location Type] = "Domestic"
+    ),
+    CALCULATE(
+        SUM('Purchase Orders'[PO Amount]),
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ),
+    0
+)
+------------------------------------------------------------------------------------------------------------------------
+International Orders = 
+CALCULATE(
+        'Measures Table'[Purchase Orders],
+            'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ) -
+CALCULATE(
+        'Measures Table'[Purchase Orders],
+            'Purchase Details'[Location Type] = "Domestic"
+)
+------------------------------------------------------------------------------------------------------------------------
+International Orders % = 
+DIVIDE(
+    CALCULATE(
+        'Measures Table'[Purchase Orders],
+        'Purchase Details'[Location Type] = "International"
+    ),
+    CALCULATE(
+        'Measures Table'[Purchase Orders],
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ),
+    0
+)
+------------------------------------------------------------------------------------------------------------------------
+International Savings = 
+CALCULATE(
+        SUM('Purchase Orders'[PO Saving Amount]),
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ) -
+CALCULATE(
+    SUM('Purchase Orders'[PO Saving Amount]),
+        'Purchase Details'[Location Type] = "Domestic"
+)
+------------------------------------------------------------------------------------------------------------------------
+International Savings % = 
+DIVIDE(
+    CALCULATE(
+        SUM('Purchase Orders'[PO Saving Amount]),
+        'Purchase Details'[Location Type] = "International"
+    ),
+    CALCULATE(
+        SUM('Purchase Orders'[PO Saving Amount]),
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ),
+    0
+)
+------------------------------------------------------------------------------------------------------------------------
+International Spend = 
+CALCULATE(
+        SUM('Purchase Orders'[PO Amount]),
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ) -
+CALCULATE(
+    SUM('Purchase Orders'[PO Amount]),
+        'Purchase Details'[Location Type] = "Domestic"
+)
+------------------------------------------------------------------------------------------------------------------------
+International Spend % = 
+DIVIDE(
+    CALCULATE(
+        SUM('Purchase Orders'[PO Amount]),
+        'Purchase Details'[Location Type] = "International"
+    ),
+    CALCULATE(
+        SUM('Purchase Orders'[PO Amount]),
+        'Purchase Details'[Location Type] IN { "Domestic", "International" }
+    ),
+    0
+)
+------------------------------------------------------------------------------------------------------------------------
+Last Month Orders = 
+CALCULATE(
+    DISTINCTCOUNT('Purchase Orders'[PO Number]),
+    DATEADD('Date'[Date], -1, MONTH)
+)
+------------------------------------------------------------------------------------------------------------------------
+Last Month Savings = 
+CALCULATE(
+    SUM('Purchase Orders'[PO Saving Amount]),
+    DATEADD('Date'[Date], -1, MONTH)
+)
+------------------------------------------------------------------------------------------------------------------------
+Last Month Spend = 
+CALCULATE(
+    SUM('Purchase Orders'[PO Amount]),
+    DATEADD('Date'[Date], -1, MONTH)
+)
+------------------------------------------------------------------------------------------------------------------------
+Last Quarter Orders = 
+CALCULATE(
+    DISTINCTCOUNT('Purchase Orders'[PO Number]),
+    DATEADD('Date'[Date], -1, QUARTER)
+)
+------------------------------------------------------------------------------------------------------------------------
+Last Quarter Savings = 
+CALCULATE(
+    SUM('Purchase Orders'[PO Saving Amount]),
+    DATEADD('Date'[Date], -1, QUARTER)
+)
+------------------------------------------------------------------------------------------------------------------------
+Last Quarter Spend = 
+CALCULATE(
+    SUM('Purchase Orders'[PO Amount]),
+    DATEADD('Date'[Date], -1, QUARTER)
+)
+------------------------------------------------------------------------------------------------------------------------
+MoM Orders % Difference = 
+VAR CurrentMonthOrders = DISTINCTCOUNT('Purchase Orders'[PO Number])
+VAR PriorMonthOrders = 'Measures Table'[Last Month Orders]
+
 RETURN
-    AVERAGEX(VendorPurchaseOrders, [Total Orders])
+IF(ISBLANK(PriorMonthOrders), BLANK(),
+    DIVIDE(CurrentMonthOrders - PriorMonthOrders, PriorMonthOrders, 0)
+)
+------------------------------------------------------------------------------------------------------------------------
+MoM Savings % Difference = 
+VAR CurrentMonthSavings = SUM('Purchase Orders'[PO Saving Amount])
+VAR PriorMonthSavings = 'Measures Table'[Last Month Savings]
+
+RETURN
+IF(ISBLANK(PriorMonthSavings), BLANK(),
+    DIVIDE(CurrentMonthSavings - PriorMonthSavings, PriorMonthSavings, 0)
+)
+------------------------------------------------------------------------------------------------------------------------
+MoM Spend % Difference = 
+VAR CurrentMonthSpend = SUM('Purchase Orders'[PO Amount])
+VAR PriorMonthSpend = 'Measures Table'[Last Month Spend]
+
+RETURN
+IF(ISBLANK(PriorMonthSpend), BLANK(),
+    DIVIDE(CurrentMonthSpend - PriorMonthSpend, PriorMonthSpend, 0)
+)
+------------------------------------------------------------------------------------------------------------------------
+Purchase Orders = 
+DISTINCTCOUNT(
+    'Purchase Orders'[PO Number]
+)
+------------------------------------------------------------------------------------------------------------------------
+QoQ Orders % Difference = 
+VAR CurrentQuarterOrders = DISTINCTCOUNT('Purchase Orders'[PO Number])
+VAR PriorQuarterOrders = 'Measures Table'[Last Quarter Orders]
+
+RETURN
+IF(ISBLANK(PriorQuarterOrders), BLANK(),
+    DIVIDE(CurrentQuarterOrders - PriorQuarterOrders, PriorQuarterOrders, 0)
+)
+------------------------------------------------------------------------------------------------------------------------
+QoQ Savings % Difference = 
+VAR CurrentQuarterSavings = SUM('Purchase Orders'[PO Saving Amount])
+VAR PriorQuarterSavings = 'Measures Table'[Last Quarter Savings]
+
+RETURN
+IF(ISBLANK(PriorQuarterSavings), BLANK(),
+    DIVIDE(CurrentQuarterSavings - PriorQuarterSavings, PriorQuarterSavings, 0)
+)
+------------------------------------------------------------------------------------------------------------------------
+QoQ Spend % Difference = 
+VAR CurrentQuarterSpend = SUM('Purchase Orders'[PO Amount])
+VAR PriorQuarterSpend = 'Measures Table'[Last Quarter Spend]
+
+RETURN
+IF(ISBLANK(PriorQuarterSpend), BLANK(),
+    DIVIDE(CurrentQuarterSpend - PriorQuarterSpend, PriorQuarterSpend, 0)
+)
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+***Metric Selection***
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+Avg Domestic Tooltip Title = 
+"Avg. Domestic " &
+    SELECTEDVALUE(
+    'Metric Selection'[Metric]
+)
+------------------------------------------------------------------------------------------------------------------------
+Avg Int'l Tooltip Title = 
+"Avg. Intl " &
+    SELECTEDVALUE(
+    'Metric Selection'[Metric]
+)
+------------------------------------------------------------------------------------------------------------------------
+Comparison Tooltip Title = 
+SELECTEDVALUE(
+    'Metric Selection'[Metric]
+) & " Comparison"
+------------------------------------------------------------------------------------------------------------------------
+Selected Metric = 
+IF(
+    ISCROSSFILTERED('Metric Selection'[Metric]),
+    SWITCH(
+        SELECTEDVALUE('Metric Selection'[Metric]),
+        "Spend", SUM('Purchase Orders'[PO Amount]),
+        "Savings", SUM('Purchase Orders'[PO Saving Amount]),
+        "Orders", ('Measures Table'[Purchase Orders])
+    ),
+    " "
+)
+------------------------------------------------------------------------------------------------------------------------
+Total Tooltip Title = 
+"Total " & SELECTEDVALUE(
+    'Metric Selection'[Metric]
+    )
+------------------------------------------------------------------------------------------------------------------------
+Card Text MoM = "MoM %"
+Card Text QoQ = "QoQ %"
 
 ------------------------------------------------------------------------------------------------------------------------
